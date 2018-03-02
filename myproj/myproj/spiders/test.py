@@ -55,8 +55,11 @@ class MySpider3(Spider):
         mains = response.xpath("//div//ul/li")
         print(">>> ITEM INFO")
         print(mains[0].xpath('b').extract())
+        #print(mains[0].xpath('ul'))
         L = []
         for index, main in enumerate(mains):
-            pass
+            print(main.xpath('.//b/text()').extract())
+            subtitles = main.xpath('.//ul/li')
+            print(len(subtitles))
             #print(main.xpath('//b/text()').extract())
         return L
