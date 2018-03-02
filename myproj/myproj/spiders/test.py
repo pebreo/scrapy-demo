@@ -61,6 +61,7 @@ class MySpider3(Spider):
         for index, main in enumerate(mains):
             mainlist = MainList()
             mainlist['title'] = main.xpath('b').extract()
+            sublist = []
             for subtitle in main.xpath('.//ul/li'):
                 asub = SubList()
                 sub_title = subtitle.xpath('a/text()').extract()
@@ -70,7 +71,8 @@ class MySpider3(Spider):
                     asub['url'] = 'http://www.manythings.org/vocabulary/lists/c/' + sub_url[0]
                 except:
                     asub['url'] = ''
-            mainlist['sublist'] = dict(asub)
+                sublist.append(asub)
+            mainlist['sublist'] = sublist
             L.append(mainlist)
             #print(main.xpath('.//b/text()').extract())
             #print(len(subtitles))
