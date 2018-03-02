@@ -55,11 +55,26 @@ class MySpider3(Spider):
         mains = response.xpath("//div//ul/li")
         print(">>> ITEM INFO")
         print(mains[0].xpath('b').extract())
-        #print(mains[0].xpath('ul'))
+        print(mains[0].xpath('.//ul/li').extract())
+        print(mains[0].xpath('.//ul/li')[0].extract())
         L = []
         for index, main in enumerate(mains):
-            print(main.xpath('.//b/text()').extract())
-            subtitles = main.xpath('.//ul/li')
-            print(len(subtitles))
+            mainlist = MainList()
+            mainlist['title'] = main.xpath('b').extract()
+            for subtitle in main.xpath('.//ul/li'):
+                asub = SubList()
+                sub_title = subtitle.xpath('a/text()').extract()
+                sub_url = subtitle.xpath('a/@href').extract()
+                asub['title'] = sub_title
+                try:
+                    asub['url'] = 'http://www.manythings.org/vocabulary/lists/c/' + sub_url[0]
+                except:
+                    asub['url'] = ''
+            mainlist['sublist'] = dict(asub)
+            L.append(mainlist)
+            #print(main.xpath('.//b/text()').extract())
+            #print(len(subtitles))
             #print(main.xpath('//b/text()').extract())
+            #L.append(subtitles)
+            
         return L
