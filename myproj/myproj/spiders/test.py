@@ -39,3 +39,24 @@ class MySpider2(Spider):
             mainlist['title'] = titles.extract()
             L.append(mainlist)
         return L
+
+
+
+class MySpider3(Spider):
+    '''
+    scrape the titles and the subtitles
+    '''
+    name = "manythings3"
+    allowed_domains = ['manythings.org']
+    start_urls = ['http://www.manythings.org/vocabulary/lists/c/']
+
+    def parse(self, response):
+        #hxs = Selector(response)
+        mains = response.xpath("//div//ul/li")
+        print(">>> ITEM INFO")
+        print(mains[0].xpath('b').extract())
+        L = []
+        for index, main in enumerate(mains):
+            pass
+            #print(main.xpath('//b/text()').extract())
+        return L
