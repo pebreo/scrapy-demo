@@ -18,15 +18,15 @@ class SubList(scrapy.Item):
 
 """
 {
-    title: 'Body',
-    sublists: [
+    "title": "Animals",
+    "sublist": [
         {
-            title: 'Subitem'
-            url: "http://foo.com"
+            "title": 'Subitem'
+            "url": "http://foo.com"
         },
         {
-            title: 'Subitem'
-            url: "http://foo.com"
+            "title": 'Subitem'
+            "url": "http://foo.com"
         },
     ]
 

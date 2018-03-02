@@ -60,20 +60,30 @@ class MySpider3(Spider):
         L = []
         for index, main in enumerate(mains):
             mainlist = MainList()
-            mainlist['title'] = main.xpath('b').extract()
-            sublist = []
-            for subtitle in main.xpath('.//ul/li'):
-                asub = SubList()
-                sub_title = subtitle.xpath('a/text()').extract()
-                sub_url = subtitle.xpath('a/@href').extract()
-                asub['title'] = sub_title
-                try:
-                    asub['url'] = 'http://www.manythings.org/vocabulary/lists/c/' + sub_url[0]
-                except:
-                    asub['url'] = ''
-                sublist.append(asub)
-            mainlist['sublist'] = sublist
-            L.append(mainlist)
+            main_title = main.xpath('b/text()').extract()
+            try:
+                mainlist['title'] = main_title[0]
+                sublist = []
+                for subtitle in main.xpath('.//ul/li'):
+                    asub = SubList()
+                    sub_title = subtitle.xpath('a/text()').extract()
+                    sub_url = subtitle.xpath('a/@href').extract()
+                    try:
+                        asub['title'] = sub_title[0]
+                        try:
+                            asub['url'] = 'http://www.manythings.org/vocabulary/lists/c/' + sub_url[0]
+                        except:
+                            asub['url'] = ''
+                        sublist.append(asub)
+                    except:
+                        pass
+                mainlist['sublist'] = sublist
+                L.append(mainlist)
+            except:
+                pass
+          
+           
+            
             #print(main.xpath('.//b/text()').extract())
             #print(len(subtitles))
             #print(main.xpath('//b/text()').extract())
