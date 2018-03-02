@@ -139,3 +139,20 @@ class MySpider4(Spider):
     def parseWords(self, url):
         return ['foo']
 
+
+class MySpider5(Spider):
+    '''
+    scrape the titles and the subtitles
+    '''
+    name = "wordlist"
+    allowed_domains = ['manythings.org']
+    start_urls = ['http://www.manythings.org/vocabulary/lists/c/words.php?f=animals_farm']
+
+    def parse(self, response):
+        words = response.xpath('//div[contains(@class, "co")]/ul/li/text()')
+        print(">>>> ITEMS")
+        wordlist = []
+        for w in words:
+            wordlist.append(w)
+        return wordlist
+
