@@ -2,7 +2,7 @@ from scrapy.spiders import Spider
 from scrapy.http import Request
 #from scrapy.selector import HtmlXPathSelector
 from scrapy.selector import Selector
-from myproj.items import  MainList, SubList
+from myproj.items import  MainList, SubList, WordList
 
 class MySpider(Spider):
     '''
@@ -176,14 +176,14 @@ class MySpider5(Spider):
             mainlist = {}
             main_title = main.xpath('b/text()').extract()
             try:
-                mainlist['title'] = main_title[0]
+                mainlist['main_title'] = main_title[0]
                 sublist = []
                 for subtitle in main.xpath('.//ul/li'):
                     asub = {}
                     sub_title = subtitle.xpath('a/text()').extract()
                     sub_url = subtitle.xpath('a/@href').extract()
                     try:
-                        asub['title'] = sub_title[0]
+                        asub['sub_title'] = sub_title[0]
                         try:
                             asub['url'] = 'http://www.manythings.org/vocabulary/lists/c/' + sub_url[0]
                         except:
@@ -196,8 +196,30 @@ class MySpider5(Spider):
             except:
                 pass         
         for item in L:
-            print(item)
-        return L
+            main_title = item['main_title']
+            for sublist in item['sublist']:
+                #print(sublist)
+                sub_title = sublist['sub_title']
+                yield Request(sublist['url'], callback=self.parseWordPage, meta={'main_title':main_title,'sub_title': sub_title})
+        
 
-    def parseWords(self, url):
-        return ['foo']
+    def parseWordPage(self, response):
+     
+        main_title = response.meta['main_title']
+        sub_title = response.meta['sub_title']
+        
+        
+        words = response.xpath('//div[contains(@class, "co")]/ul/li/text()')
+
+        wordlist = [w.extract() for w in words]
+        item = WordList(main_title=main_title, sub_title=sub_title, wordlist=wordlist)
+        yield item
+
+
+
+
+
+
+
+
+

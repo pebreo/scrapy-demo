@@ -21,6 +21,9 @@ NEWSPIDER_MODULE = 'myproj.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
+#FEED_EXPORT_FIELDS = ['main_title']
+ 
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 

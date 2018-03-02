@@ -17,6 +17,10 @@ class SubList(scrapy.Item):
     url = Field()
     wordlist = Field()
 
+class WordList(scrapy.Item):
+    main_title = Field()
+    sub_title = Field()
+    wordlist = Field()
 
 """
 {
