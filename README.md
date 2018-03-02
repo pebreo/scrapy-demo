@@ -6,7 +6,7 @@ $ pip install scrapy
 $ scrapy startproject myproj
 
 $ cd myproj
-$ scrapy crawl manythings # the name of the spider
+$ scrapy crawl words1 # the name of the spider
 ```
 
 ### Other resources

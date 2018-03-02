@@ -161,7 +161,7 @@ class MySpider5(Spider):
 
 class MySpider5(Spider):
     '''
-    scrape the titles and the subtitles
+    This spider scrapes the titles and the subtitles for words in manythings.org
     '''
     name = "words1"
     allowed_domains = ['manythings.org']
