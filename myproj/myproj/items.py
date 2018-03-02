@@ -15,18 +15,22 @@ class MainList(scrapy.Item):
 class SubList(scrapy.Item):
     title = Field()
     url = Field()
+    wordlist = Field()
+
 
 """
 {
     "title": "Animals",
     "sublist": [
         {
-            "title": 'Subitem'
-            "url": "http://foo.com"
+            "title": 'Subitem',
+            "url": "http://foo.com",
+            "wordlist": ['foo', 'baz','bar']
         },
         {
             "title": 'Subitem'
-            "url": "http://foo.com"
+            "url": "http://foo.com",
+            "wordlist": ['apple','banana','orange']
         },
     ]
 
