@@ -8,7 +8,32 @@
 import scrapy
 from scrapy.item import Item, Field
 
-class MyprojItem(scrapy.Item):
+class MainList(scrapy.Item):
     title = Field()
-    link = Field()
+    sublist = Field()
 
+class SubList(scrapy.Item):
+    title = Field()
+    url = Field()
+
+"""
+{
+    title: 'Body',
+    sublists: [
+        {
+            title: 'Subitem'
+            url: "http://foo.com"
+        },
+        {
+            title: 'Subitem'
+            url: "http://foo.com"
+        },
+    ]
+
+}
+
+items = []
+for titles in titles:
+    item = MainList()
+    item['title']
+"""
